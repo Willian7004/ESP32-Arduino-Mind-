@@ -1,0 +1,116 @@
+/*!
+ * MindPlus
+ * mpython
+ *
+ */
+#include <MPython.h>
+#include <DFRobot_Iot.h>
+#include <MPython_NtpTime.h>
+
+// 动态变量
+volatile float mind_n_i;
+// 创建对象
+DFRobot_Iot     myIot;
+MPython_NtpTime ntptime;
+
+
+// 主程序开始
+void setup() {
+	mPython.begin();
+	mind_n_i = 0;
+	display.setCursorLine(1);
+	display.printLine("正在连接");
+	myIot.wifiConnect("Mercury_X30G", "Xu3328313");
+	while (!myIot.wifiStatus()) {yield();}
+	ntptime.setNtpTime(ntptime.UTCEast8_t, "edu.ntp.org.cn");
+	while (!false) {
+		if ((buttonA.isPressed())) {
+			mind_n_i = 0;
+			display.fillScreen(0);
+		}
+		if ((buttonB.isPressed())) {
+			mind_n_i = 1;
+			display.fillScreen(0);
+		}
+		if ((mind_n_i==0)) {
+			display.setCursorLine(1);
+			display.printLine("陀螺仪/加速度传感器");
+			display.setCursorLine(2);
+			display.printLine("X:");
+			display.setCursor(15, 16);
+			display.print((accelerometer.getX()));
+			display.setCursorLine(3);
+			display.printLine("Y:");
+			display.setCursor(15, 32);
+			display.print((accelerometer.getY()));
+			display.setCursorLine(4);
+			display.printLine("加速度：");
+			display.setCursor(45, 48);
+			display.print((accelerometer.getStrength()));
+			delay(100);
+		}
+		if ((mind_n_i==1)) {
+			display.setCursorLine(3);
+			display.printLine("环境光：");
+			display.setCursor(50, 36);
+			display.print((light.read()));
+			display.setCursorLine(4);
+			display.printLine("麦克风：");
+			display.setCursor(50, 48);
+			display.print((sound.read()));
+			display.setCursor(5, 0);
+			display.print(ntptime.localTime(ntptime.Year));
+			display.setCursor(35, 0);
+			display.print("-");
+			display.setCursor(40, 0);
+			display.print(ntptime.localTime(ntptime.Month));
+			display.setCursor(55, 0);
+			display.print("-");
+			display.setCursor(65, 0);
+			display.print(ntptime.localTime(ntptime.Date));
+			display.setCursor(20, 16);
+			display.print(ntptime.localTime(ntptime.Hour));
+			display.setCursor(40, 16);
+			display.print(":");
+			display.setCursor(50, 16);
+			display.print(ntptime.localTime(ntptime.Minute));
+			display.setCursor(70, 16);
+			display.print(":");
+			display.setCursor(80, 16);
+			display.print(ntptime.localTime(ntptime.Second));
+			if ((ntptime.localTime(ntptime.Week)==0)) {
+				display.setCursor(85, 0);
+				display.print("星期六");
+			}
+			if ((ntptime.localTime(ntptime.Week)==1)) {
+				display.setCursor(85, 0);
+				display.print("星期日");
+			}
+			if ((ntptime.localTime(ntptime.Week)==2)) {
+				display.setCursor(85, 0);
+				display.print("星期一");
+			}
+			if ((ntptime.localTime(ntptime.Week)==3)) {
+				display.setCursor(85, 0);
+				display.print("星期二");
+			}
+			if ((ntptime.localTime(ntptime.Week)==4)) {
+				display.setCursor(85, 0);
+				display.print("星期三");
+			}
+			if ((ntptime.localTime(ntptime.Week)==5)) {
+				display.setCursor(85, 0);
+				display.print("星期四");
+			}
+			if ((ntptime.localTime(ntptime.Week)==6)) {
+				display.setCursor(85, 0);
+				display.print("星期五");
+			}
+			delay(200);
+		}
+		yield();
+	}
+}
+void loop() {
+
+}
