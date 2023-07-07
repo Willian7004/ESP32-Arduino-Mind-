@@ -1,0 +1,277 @@
+/*!
+ * MindPlus
+ * mpython
+ *
+ */
+#include <MPython.h>
+
+// 动态变量
+volatile float mind_n_i, mind_n_r, mind_n_g, mind_n_b, mind_n_j, mind_n_x, mind_n_k;
+// 函数声明
+uint32_t rgbToColor(uint8_t r, uint8_t g, uint8_t b);
+
+
+// 主程序开始
+void setup() {
+	mPython.begin();
+	dfrobotRandomSeed();
+	mind_n_i = 1;
+	mind_n_r = 0;
+	mind_n_g = 0;
+	mind_n_b = 0;
+	mind_n_j = 2;
+	mind_n_x = 1;
+}
+void loop() {
+	if (((buttonA.isPressed()) && (mind_n_i>0))) {
+		mind_n_i -= 1;
+	}
+	if (((buttonB.isPressed()) && (mind_n_i<7))) {
+		mind_n_i += 1;
+	}
+	if ((mind_n_i>0)) {
+		if ((mind_n_k==0)) {
+			mind_n_k = 1;
+			display.fillScreen(0);
+			rgb.write(-1, rgbToColor(round(0), round(0), round(0)));
+		}
+		if (((touchPadP.isTouched()) && (mind_n_r>0))) {
+			mind_n_r -= 10;
+		}
+		if (((touchPadY.isTouched()) && (mind_n_r<250))) {
+			mind_n_r += 10;
+		}
+		if (((touchPadT.isTouched()) && (mind_n_g>0))) {
+			mind_n_g -= 10;
+		}
+		if (((touchPadH.isTouched()) && (mind_n_g<250))) {
+			mind_n_g += 10;
+		}
+		if (((touchPadO.isTouched()) && (mind_n_b>0))) {
+			mind_n_b -= 10;
+		}
+		if (((touchPadN.isTouched()) && (mind_n_b<250))) {
+			mind_n_b += 10;
+		}
+		display.setCursor(20, 16);
+		display.print("红：");
+		display.setCursor(50, 16);
+		display.print("    ");
+		display.setCursor(45, 16);
+		display.print(mind_n_r);
+		display.setCursor(45, 32);
+		display.print("绿：");
+		display.setCursor(75, 32);
+		display.print("    ");
+		display.setCursor(70, 32);
+		display.print(mind_n_g);
+		display.setCursor(70, 48);
+		display.print("蓝：");
+		display.setCursor(100, 48);
+		display.print("    ");
+		display.setCursor(95, 48);
+		display.print(mind_n_b);
+		if ((mind_n_i==1)) {
+			display.fillInLine(1, 0);
+			rgb.write(0, rgbToColor(round(mind_n_r), round(mind_n_g), round(mind_n_b)));
+			display.fillCircle(30, 8, 5);
+			display.drawCircle(60, 8, 5);
+			display.drawCircle(90, 8, 5);
+		}
+		if ((mind_n_i==2)) {
+			display.fillInLine(1, 0);
+			rgb.write(1, rgbToColor(round(mind_n_r), round(mind_n_g), round(mind_n_b)));
+			display.drawCircle(30, 8, 5);
+			display.fillCircle(60, 8, 5);
+			display.drawCircle(90, 8, 5);
+		}
+		if ((mind_n_i==3)) {
+			display.fillInLine(1, 0);
+			rgb.write(2, rgbToColor(round(mind_n_r), round(mind_n_g), round(mind_n_b)));
+			display.drawCircle(30, 8, 5);
+			display.drawCircle(60, 8, 5);
+			display.fillCircle(90, 8, 5);
+		}
+		if ((mind_n_i==4)) {
+			display.fillInLine(1, 0);
+			rgb.write(0, rgbToColor(round(mind_n_r), round(mind_n_g), round(mind_n_b)));
+			rgb.write(1, rgbToColor(round(mind_n_r), round(mind_n_g), round(mind_n_b)));
+			display.fillCircle(30, 8, 5);
+			display.fillCircle(60, 8, 5);
+			display.drawCircle(90, 8, 5);
+		}
+		if ((mind_n_i==5)) {
+			display.fillInLine(1, 0);
+			rgb.write(1, rgbToColor(round(mind_n_r), round(mind_n_g), round(mind_n_b)));
+			rgb.write(2, rgbToColor(round(mind_n_r), round(mind_n_g), round(mind_n_b)));
+			display.drawCircle(30, 8, 5);
+			display.fillCircle(60, 8, 5);
+			display.fillCircle(90, 8, 5);
+		}
+		if ((mind_n_i==6)) {
+			display.fillInLine(1, 0);
+			rgb.write(2, rgbToColor(round(mind_n_r), round(mind_n_g), round(mind_n_b)));
+			rgb.write(0, rgbToColor(round(mind_n_r), round(mind_n_g), round(mind_n_b)));
+			display.fillCircle(30, 8, 5);
+			display.drawCircle(60, 8, 5);
+			display.fillCircle(90, 8, 5);
+		}
+		if ((mind_n_i==7)) {
+			display.fillInLine(1, 0);
+			rgb.write(-1, rgbToColor(round(mind_n_r), round(mind_n_g), round(mind_n_b)));
+			display.fillCircle(30, 8, 5);
+			display.fillCircle(60, 8, 5);
+			display.fillCircle(90, 8, 5);
+		}
+		delay(100);
+	}
+	if ((mind_n_i==0)) {
+		if ((mind_n_k==1)) {
+			display.fillScreen(0);
+			mind_n_k = 0;
+			display.setCursor(50, 5);
+			display.print("预设");
+			display.drawCircle(35, 13, 4);
+			display.drawCircle(85, 13, 4);
+			display.rect(20, 25, 88, 30, false);
+		}
+		if ((touchPadP.isTouched())) {
+			mind_n_j = 1;
+		}
+		if ((touchPadY.isTouched())) {
+			mind_n_j = 2;
+		}
+		if ((touchPadT.isTouched())) {
+			mind_n_j = 3;
+		}
+		if ((touchPadH.isTouched())) {
+			mind_n_j = 4;
+		}
+		if ((touchPadO.isTouched())) {
+			mind_n_j = 5;
+		}
+		if ((touchPadN.isTouched())) {
+			mind_n_j = 6;
+		}
+		if ((mind_n_j==1)) {
+			display.fillInLine(3, 0);
+			display.setCursor(42, 32);
+			display.print("随机颜色");
+			rgb.write(0, rgbToColor(round((random(0, 250+1))), round((random(0, 250+1))), round((random(0, 250+1)))));
+			rgb.write(1, rgbToColor(round((random(0, 250+1))), round((random(0, 250+1))), round((random(0, 250+1)))));
+			rgb.write(2, rgbToColor(round((random(0, 250+1))), round((random(0, 250+1))), round((random(0, 250+1)))));
+		}
+		if ((mind_n_j==2)) {
+			display.fillInLine(3, 0);
+			display.setCursor(35, 32);
+			display.print("随机低亮度");
+			rgb.write(0, rgbToColor(round((random(0, 100+1))), round((random(0, 100+1))), round((random(0, 100+1)))));
+			rgb.write(1, rgbToColor(round((random(0, 100+1))), round((random(0, 100+1))), round((random(0, 100+1)))));
+			rgb.write(2, rgbToColor(round((random(0, 100+1))), round((random(0, 100+1))), round((random(0, 100+1)))));
+		}
+		if ((mind_n_j==3)) {
+			display.fillInLine(3, 0);
+			display.setCursor(50, 32);
+			display.print("流水灯");
+			if ((mind_n_x==1)) {
+				rgb.write(0, rgbToColor(round(200), round(0), round(0)));
+				rgb.write(1, rgbToColor(round(100), round(100), round(0)));
+				rgb.write(2, rgbToColor(round(0), round(200), round(0)));
+			}
+			if ((mind_n_x==2)) {
+				rgb.write(0, rgbToColor(round(100), round(100), round(0)));
+				rgb.write(1, rgbToColor(round(0), round(200), round(0)));
+				rgb.write(2, rgbToColor(round(0), round(100), round(100)));
+			}
+			if ((mind_n_x==3)) {
+				rgb.write(0, rgbToColor(round(0), round(200), round(0)));
+				rgb.write(1, rgbToColor(round(0), round(100), round(100)));
+				rgb.write(2, rgbToColor(round(0), round(0), round(200)));
+			}
+			if ((mind_n_x==4)) {
+				rgb.write(0, rgbToColor(round(0), round(100), round(100)));
+				rgb.write(1, rgbToColor(round(0), round(0), round(200)));
+				rgb.write(2, rgbToColor(round(100), round(0), round(100)));
+			}
+			if ((mind_n_x==5)) {
+				rgb.write(0, rgbToColor(round(0), round(0), round(200)));
+				rgb.write(1, rgbToColor(round(100), round(0), round(100)));
+				rgb.write(2, rgbToColor(round(200), round(0), round(0)));
+			}
+			if ((mind_n_x==6)) {
+				rgb.write(0, rgbToColor(round(100), round(0), round(100)));
+				rgb.write(1, rgbToColor(round(200), round(0), round(0)));
+				rgb.write(2, rgbToColor(round(100), round(100), round(0)));
+			}
+			mind_n_x += 1;
+			if ((mind_n_x==7)) {
+				mind_n_x = 1;
+			}
+		}
+		if ((mind_n_j==4)) {
+			display.fillInLine(3, 0);
+			display.setCursor(30, 32);
+			display.print("流水灯低亮度");
+			if ((mind_n_x==1)) {
+				rgb.write(0, rgbToColor(round(100), round(0), round(0)));
+				rgb.write(1, rgbToColor(round(50), round(50), round(0)));
+				rgb.write(2, rgbToColor(round(0), round(100), round(0)));
+			}
+			if ((mind_n_x==2)) {
+				rgb.write(0, rgbToColor(round(50), round(50), round(0)));
+				rgb.write(1, rgbToColor(round(0), round(100), round(0)));
+				rgb.write(2, rgbToColor(round(0), round(50), round(50)));
+			}
+			if ((mind_n_x==3)) {
+				rgb.write(0, rgbToColor(round(0), round(100), round(0)));
+				rgb.write(1, rgbToColor(round(0), round(50), round(50)));
+				rgb.write(2, rgbToColor(round(0), round(0), round(100)));
+			}
+			if ((mind_n_x==4)) {
+				rgb.write(0, rgbToColor(round(0), round(50), round(50)));
+				rgb.write(1, rgbToColor(round(0), round(0), round(100)));
+				rgb.write(2, rgbToColor(round(50), round(0), round(50)));
+			}
+			if ((mind_n_x==5)) {
+				rgb.write(0, rgbToColor(round(0), round(0), round(100)));
+				rgb.write(1, rgbToColor(round(50), round(0), round(50)));
+				rgb.write(2, rgbToColor(round(100), round(0), round(0)));
+			}
+			if ((mind_n_x==6)) {
+				rgb.write(0, rgbToColor(round(50), round(0), round(50)));
+				rgb.write(1, rgbToColor(round(100), round(0), round(0)));
+				rgb.write(2, rgbToColor(round(50), round(50), round(0)));
+			}
+			mind_n_x += 1;
+			if ((mind_n_x==7)) {
+				mind_n_x = 1;
+			}
+		}
+		if ((mind_n_j==5)) {
+			display.fillInLine(3, 0);
+			display.setCursor(28, 32);
+			display.print("红、绿、蓝=0");
+			mind_n_r = 0;
+			mind_n_g = 0;
+			mind_n_b = 0;
+			rgb.write(-1, rgbToColor(round(0), round(0), round(0)));
+		}
+		if ((mind_n_j==6)) {
+			display.fillInLine(3, 0);
+			display.setCursor(22, 32);
+			display.print("红、绿、蓝=250");
+			mind_n_r = 250;
+			mind_n_g = 250;
+			mind_n_b = 250;
+			rgb.write(-1, rgbToColor(round(250), round(250), round(250)));
+		}
+		delay(200);
+	}
+}
+
+
+// 静态函数
+uint32_t rgbToColor(uint8_t r, uint8_t g, uint8_t b)
+{
+  return (uint32_t)((((uint32_t)r<<16) | ((uint32_t)g<<8)) | (uint32_t)b);
+}
