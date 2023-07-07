@@ -1,0 +1,130 @@
+/*!
+ * MindPlus
+ * mpython
+ *
+ */
+#include <MPython.h>
+
+// 动态变量
+volatile float mind_n_i, mind_n_lb, mind_n_lx, mind_n_ly, mind_n_x, mind_n_y, mind_n_xx,
+               mind_n_yy;
+// 函数声明
+uint32_t rgbToColor(uint8_t r, uint8_t g, uint8_t b);
+
+
+// 主程序开始
+void setup() {
+	mPython.begin();
+	accelerometer.setOffset(0, -187, 0);
+	mind_n_i = 0;
+	mind_n_lb = 3;
+}
+void loop() {
+	if (((buttonA.isPressed()) && (mind_n_i>0))) {
+		mind_n_i -= 1;
+	}
+	if (((buttonB.isPressed()) && (mind_n_i<3))) {
+		mind_n_i += 1;
+	}
+	display.fillScreen(0);
+	if ((mind_n_i==0)) {
+		display.setCursor(12, 23);
+		display.print("关灯");
+	}
+	if ((mind_n_i==1)) {
+		display.setCursor(15, 23);
+		display.print("RG");
+	}
+	if ((mind_n_i==2)) {
+		display.setCursor(15, 23);
+		display.print("GB");
+	}
+	if ((mind_n_i==3)) {
+		display.setCursor(15, 23);
+		display.print("BR");
+	}
+	mind_n_lx = (round(((255 * (accelerometer.getY())) / 1000)));
+	mind_n_ly = (round(((255 * (accelerometer.getX())) / 1000)));
+	mind_n_x = (round(((90 * mind_n_lx) / 255)));
+	mind_n_y = (round(((90 * mind_n_ly) / 255)));
+	mind_n_xx = (round(((mind_n_x * 32) / 90)));
+	mind_n_yy = (round(((mind_n_y * 32) / 90)));
+	display.setCursor(5, 5);
+	display.print("X:");
+	display.setCursor(20, 5);
+	display.print(mind_n_x);
+	display.setCursor(5, 42);
+	display.print("Y:");
+	display.setCursor(20, 42);
+	display.print(mind_n_y);
+	display.drawCircle(74, 30, 31);
+	display.fillCircle((74 - mind_n_xx), (32 - mind_n_yy), 3);
+	if ((touchPadP.isTouched())) {
+		mind_n_lb = 1;
+	}
+	if ((touchPadY.isTouched())) {
+		mind_n_lb = 2;
+	}
+	if ((touchPadT.isTouched())) {
+		mind_n_lb = 3;
+	}
+	if ((touchPadH.isTouched())) {
+		mind_n_lb = 4;
+	}
+	if ((touchPadO.isTouched())) {
+		mind_n_lb = 5;
+	}
+	if ((touchPadN.isTouched())) {
+		mind_n_lb = 6;
+	}
+	display.setCursor(110, 5);
+	display.print("亮");
+	display.setCursor(110, 20);
+	display.print("度");
+	display.setCursor(110, 35);
+	display.print(mind_n_lb);
+	if ((mind_n_lb==1)) {
+		mind_n_lx = (round(((mind_n_lx + 255) / 2)));
+		mind_n_ly = (round(((mind_n_ly + 255) / 2)));
+	}
+	if ((mind_n_lb==2)) {
+		mind_n_lx = (round(((mind_n_lx + 255) / 4)));
+		mind_n_ly = (round(((mind_n_ly + 255) / 4)));
+	}
+	if ((mind_n_lb==3)) {
+		mind_n_lx = (round(((mind_n_lx + 255) / 6)));
+		mind_n_ly = (round(((mind_n_ly + 255) / 6)));
+	}
+	if ((mind_n_lb==4)) {
+		mind_n_lx = (round(((mind_n_lx + 255) / 8)));
+		mind_n_ly = (round(((mind_n_ly + 255) / 8)));
+	}
+	if ((mind_n_lb==5)) {
+		mind_n_lx = (round(((mind_n_lx + 255) / 10)));
+		mind_n_ly = (round(((mind_n_ly + 255) / 10)));
+	}
+	if ((mind_n_lb==6)) {
+		mind_n_lx = (round(((mind_n_lx + 255) / 12)));
+		mind_n_ly = (round(((mind_n_ly + 255) / 12)));
+	}
+	if ((mind_n_i==0)) {
+		rgb.write(-1, rgbToColor(round(0), round(0), round(0)));
+	}
+	if ((mind_n_i==1)) {
+		rgb.write(-1, rgbToColor(round(mind_n_lx), round(mind_n_ly), round(0)));
+	}
+	if ((mind_n_i==2)) {
+		rgb.write(-1, rgbToColor(round(0), round(mind_n_lx), round(mind_n_ly)));
+	}
+	if ((mind_n_i==3)) {
+		rgb.write(-1, rgbToColor(round(mind_n_ly), round(0), round(mind_n_lx)));
+	}
+	delay(20);
+}
+
+
+// 静态函数
+uint32_t rgbToColor(uint8_t r, uint8_t g, uint8_t b)
+{
+  return (uint32_t)((((uint32_t)r<<16) | ((uint32_t)g<<8)) | (uint32_t)b);
+}
