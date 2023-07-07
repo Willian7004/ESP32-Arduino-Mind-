@@ -1,0 +1,171 @@
+/*!
+ * MindPlus
+ * mpython
+ *
+ */
+#include <MPython.h>
+
+// 动态变量
+volatile float mind_n_i;
+
+
+// 主程序开始
+void setup() {
+	mPython.begin();
+	mind_n_i = 3;
+	buzz.setTicksTempo(4, 60);
+}
+void loop() {
+	if (((buttonA.isPressed()) && (mind_n_i>1))) {
+		mind_n_i -= 1;
+		delay(100);
+	}
+	if (((buttonB.isPressed()) && (mind_n_i<6))) {
+		mind_n_i += 1;
+		delay(100);
+	}
+	if ((mind_n_i==1)) {
+		display.setCursorLine(1);
+		display.printLine("  低音");
+		display.setCursorLine(3);
+		display.printLine(" 1 1# 2 2# 3 4");
+		if ((touchPadP.isTouched())) {
+			buzz.freq(131, BEAT_1_4);
+		}
+		if ((touchPadY.isTouched())) {
+			buzz.freq(139, BEAT_1_4);
+		}
+		if ((touchPadT.isTouched())) {
+			buzz.freq(147, BEAT_1_4);
+		}
+		if ((touchPadH.isTouched())) {
+			buzz.freq(156, BEAT_1_4);
+		}
+		if ((touchPadO.isTouched())) {
+			buzz.freq(165, BEAT_1_4);
+		}
+		if ((touchPadN.isTouched())) {
+			buzz.freq(175, BEAT_1_4);
+		}
+	}
+	if ((mind_n_i==2)) {
+		display.setCursorLine(1);
+		display.printLine("  低音");
+		display.setCursorLine(3);
+		display.printLine("  4# 5 5# 6 6# 7");
+		if ((touchPadP.isTouched())) {
+			buzz.freq(185, BEAT_1_4);
+		}
+		if ((touchPadY.isTouched())) {
+			buzz.freq(196, BEAT_1_4);
+		}
+		if ((touchPadT.isTouched())) {
+			buzz.freq(208, BEAT_1_4);
+		}
+		if ((touchPadH.isTouched())) {
+			buzz.freq(220, BEAT_1_4);
+		}
+		if ((touchPadO.isTouched())) {
+			buzz.freq(233, BEAT_1_4);
+		}
+		if ((touchPadN.isTouched())) {
+			buzz.freq(247, BEAT_1_4);
+		}
+	}
+	if ((mind_n_i==3)) {
+		display.setCursorLine(1);
+		display.printLine("  中音");
+		display.setCursorLine(3);
+		display.printLine(" 1 1# 2 2# 3 4");
+		if ((touchPadP.isTouched())) {
+			buzz.freq(262, BEAT_1_4);
+		}
+		if ((touchPadY.isTouched())) {
+			buzz.freq(277, BEAT_1_4);
+		}
+		if ((touchPadT.isTouched())) {
+			buzz.freq(294, BEAT_1_4);
+		}
+		if ((touchPadH.isTouched())) {
+			buzz.freq(311, BEAT_1_4);
+		}
+		if ((touchPadO.isTouched())) {
+			buzz.freq(330, BEAT_1_4);
+		}
+		if ((touchPadN.isTouched())) {
+			buzz.freq(349, BEAT_1_4);
+		}
+	}
+	if ((mind_n_i==4)) {
+		display.setCursorLine(1);
+		display.printLine("  中音");
+		display.setCursorLine(3);
+		display.printLine("  4# 5 5# 6 6# 7");
+		if ((touchPadP.isTouched())) {
+			buzz.freq(370, BEAT_1_4);
+		}
+		if ((touchPadY.isTouched())) {
+			buzz.freq(392, BEAT_1_4);
+		}
+		if ((touchPadT.isTouched())) {
+			buzz.freq(415, BEAT_1_4);
+		}
+		if ((touchPadH.isTouched())) {
+			buzz.freq(440, BEAT_1_4);
+		}
+		if ((touchPadO.isTouched())) {
+			buzz.freq(466, BEAT_1_4);
+		}
+		if ((touchPadN.isTouched())) {
+			buzz.freq(494, BEAT_1_4);
+		}
+	}
+	if ((mind_n_i==5)) {
+		display.setCursorLine(1);
+		display.printLine("  高音");
+		display.setCursorLine(3);
+		display.printLine(" 1 1# 2 2# 3 4");
+		if ((touchPadP.isTouched())) {
+			buzz.freq(523, BEAT_1_4);
+		}
+		if ((touchPadY.isTouched())) {
+			buzz.freq(554, BEAT_1_4);
+		}
+		if ((touchPadT.isTouched())) {
+			buzz.freq(587, BEAT_1_4);
+		}
+		if ((touchPadH.isTouched())) {
+			buzz.freq(622, BEAT_1_4);
+		}
+		if ((touchPadO.isTouched())) {
+			buzz.freq(659, BEAT_1_4);
+		}
+		if ((touchPadN.isTouched())) {
+			buzz.freq(698, BEAT_1_4);
+		}
+	}
+	if ((mind_n_i==6)) {
+		display.setCursorLine(1);
+		display.printLine("  高音");
+		display.setCursorLine(3);
+		display.printLine("  4# 5 5# 6 6# 7");
+		if ((touchPadP.isTouched())) {
+			buzz.freq(740, BEAT_1_4);
+		}
+		if ((touchPadY.isTouched())) {
+			buzz.freq(784, BEAT_1_4);
+		}
+		if ((touchPadT.isTouched())) {
+			buzz.freq(831, BEAT_1_4);
+		}
+		if ((touchPadH.isTouched())) {
+			buzz.freq(880, BEAT_1_4);
+		}
+		if ((touchPadO.isTouched())) {
+			buzz.freq(932, BEAT_1_4);
+		}
+		if ((touchPadN.isTouched())) {
+			buzz.freq(988, BEAT_1_4);
+		}
+	}
+}
