@@ -1,0 +1,491 @@
+# MindPlus
+# mpython
+from mpython import *
+import time
+
+
+touch_threshold = {'P': 400, 'Y': 400, 'T': 400, 'H': 400, 'O': 400, 'N': 400}
+
+image_picture = Image()
+
+
+i = 4
+j = 1
+k = 1
+oled.DispChar("内置图片与动画显示", 10, 10, 1)
+oled.fill_triangle(5, 40, 20, 35,20, 45, 1)
+oled.fill_triangle(123, 40, 108, 35,108, 45, 1)
+oled.show()
+while True:
+  oled.fill(0)
+  if button_a.value() == 0:
+    i = 1
+  if button_b.value() == 0:
+    i = 3
+  if button_a.value() == 0 and button_b.value() == 0:
+    i = 0
+  if ((i == 2) or (i == 0)):
+    if touchPad_P.read() < touch_threshold['P']:
+      j = 1
+    if touchPad_Y.read() < touch_threshold['Y']:
+      j = 2
+    if touchPad_T.read() < touch_threshold['T']:
+      j = 3
+    if touchPad_H.read() < touch_threshold['H']:
+      j = 4
+    if touchPad_N.read() < touch_threshold['N']:
+      j = 6
+    if touchPad_O.read() < touch_threshold['O']:
+      if touchPad_N.read() < touch_threshold['N']:
+        j = 7
+      else:
+        j = 5
+  if (i == 1):
+    oled.DispChar("选择前六组图片", 20, 20, 1)
+    oled.RoundRect(14, 15, 100, 30, 10, 1)
+    oled.show()
+    if touchPad_P.read() < touch_threshold['P']:
+      k = 1
+      i = 2
+    if touchPad_Y.read() < touch_threshold['Y']:
+      k = 2
+      i = 2
+    if touchPad_T.read() < touch_threshold['T']:
+      k = 3
+      i = 2
+    if touchPad_H.read() < touch_threshold['H']:
+      k = 4
+      i = 2
+    if touchPad_O.read() < touch_threshold['O']:
+      k = 5
+      i = 2
+    if touchPad_N.read() < touch_threshold['N']:
+      k = 6
+      i = 2
+  if (i == 3):
+    oled.DispChar("选择后七组图片", 20, 20, 1)
+    oled.RoundRect(14, 15, 100, 30, 10, 1)
+    oled.show()
+    if touchPad_P.read() < touch_threshold['P']:
+      k = 7
+      i = 2
+    if touchPad_Y.read() < touch_threshold['Y']:
+      k = 8
+      i = 2
+    if touchPad_T.read() < touch_threshold['T']:
+      k = 9
+      i = 2
+    if touchPad_H.read() < touch_threshold['H']:
+      k = 10
+      i = 2
+    if touchPad_O.read() < touch_threshold['O']:
+      k = 11
+      i = 2
+    if touchPad_N.read() < touch_threshold['N']:
+      time.sleep(0.2)
+      if touchPad_N.read() < touch_threshold['N']:
+        k = 13
+        i = 2
+      else:
+        k = 12
+        i = 2
+  if (i == 0):
+    if (j == 1):
+      oled.blit(image_picture.load('face/Progress/Bar 0.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Bar 1.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Bar 2.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Bar 3.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Bar 4.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+    if (j == 2):
+      oled.blit(image_picture.load('face/Progress/Dial 0.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Dial 1.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Dial 2.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Dial 3.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Dial 4.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+    if (j == 3):
+      oled.blit(image_picture.load('face/Progress/Dots 0.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Dots 1.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Dots 2.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Dots 3.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+    if (j == 4):
+      oled.blit(image_picture.load('face/Progress/Hourglass 0.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(150))
+      oled.blit(image_picture.load('face/Progress/Hourglass 1.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(150))
+      oled.blit(image_picture.load('face/Progress/Hourglass 2.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(150))
+    if (j == 5):
+      oled.blit(image_picture.load('face/Progress/Timer 0.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Timer 1.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Timer 2.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Timer 3.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+      oled.blit(image_picture.load('face/Progress/Timer 4.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(100))
+    if (j == 6):
+      oled.blit(image_picture.load('face/Progress/Water level 0.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(125))
+      oled.blit(image_picture.load('face/Progress/Water level 1.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(125))
+      oled.blit(image_picture.load('face/Progress/Water level 2.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(125))
+      oled.blit(image_picture.load('face/Progress/Water level 3.pbm', 0), 20, 0)
+      oled.show()
+      time.sleep_ms(int(125))
+    if (j == 7):
+      oled.blit(image_picture.load('face/System/Slider_0.pbm', 0), 55, 15)
+      oled.show()
+      time.sleep_ms(int(60))
+      oled.blit(image_picture.load('face/System/Slider_1.pbm', 0), 55, 15)
+      oled.show()
+      time.sleep_ms(int(60))
+      oled.blit(image_picture.load('face/System/Slider_2.pbm', 0), 55, 15)
+      oled.show()
+      time.sleep_ms(int(60))
+      oled.blit(image_picture.load('face/System/Slider_3.pbm', 0), 55, 15)
+      oled.show()
+      time.sleep_ms(int(60))
+      oled.blit(image_picture.load('face/System/Slider_4.pbm', 0), 55, 15)
+      oled.show()
+      time.sleep_ms(int(60))
+      oled.blit(image_picture.load('face/System/Slider_5.pbm', 0), 55, 15)
+      oled.show()
+      time.sleep_ms(int(60))
+      oled.blit(image_picture.load('face/System/Slider_6.pbm', 0), 55, 15)
+      oled.show()
+      time.sleep_ms(int(60))
+      oled.blit(image_picture.load('face/System/Slider_7.pbm', 0), 55, 15)
+      oled.show()
+      time.sleep_ms(int(60))
+      oled.blit(image_picture.load('face/System/Slider_8.pbm', 0), 55, 15)
+      oled.show()
+      time.sleep_ms(int(60))
+  if (i == 2):
+    if (k == 1):
+      if (j == 1):
+        oled.blit(image_picture.load('face/1.pbm', 0), 32, 0)
+        oled.show()
+      if (j == 2):
+        oled.blit(image_picture.load('face/3.pbm', 0), 32, 0)
+        oled.show()
+      if (j == 3):
+        oled.blit(image_picture.load('face/4.pbm', 0), 32, 0)
+        oled.show()
+      if (j == 4):
+        oled.blit(image_picture.load('face/5.pbm', 0), 32, 0)
+        oled.show()
+      if (j == 5):
+        oled.blit(image_picture.load('face/6.pbm', 0), 32, 0)
+        oled.show()
+      if (j == 6):
+        oled.blit(image_picture.load('face/7.pbm', 0), 32, 0)
+        oled.show()
+      if (j == 7):
+        oled.blit(image_picture.load('face/8.pbm', 0), 32, 0)
+        oled.show()
+    if (k == 2):
+      if (j == 1):
+        oled.blit(image_picture.load('face/9.pbm', 0), 32, 0)
+        oled.show()
+      if (j == 2):
+        oled.blit(image_picture.load('face/10.pbm', 0), 32, 0)
+        oled.show()
+      if (j == 3):
+        oled.blit(image_picture.load('face/11.pbm', 0), 32, 0)
+        oled.show()
+      if (j == 4):
+        oled.blit(image_picture.load('face/12.pbm', 0), 32, 0)
+        oled.show()
+      if (j == 5):
+        oled.blit(image_picture.load('face/rock.pbm', 0), 32, 0)
+        oled.show()
+      if (j == 6):
+        oled.blit(image_picture.load('face/paper.pbm', 0), 32, 0)
+        oled.show()
+      if (j == 7):
+        oled.blit(image_picture.load('face/scissors.pbm', 0), 32, 0)
+        oled.show()
+    if (k == 3):
+      if (j == 1):
+        oled.blit(image_picture.load('face/Expressions/Big smile.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 2):
+        oled.blit(image_picture.load('face/Expressions/Heart large.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 3):
+        oled.blit(image_picture.load('face/Expressions/Mouth 1 open.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 4):
+        oled.blit(image_picture.load('face/Expressions/Mouth 1 shut.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 5):
+        oled.blit(image_picture.load('face/Expressions/Mouth 2 open.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 6):
+        oled.blit(image_picture.load('face/Expressions/Mouth 2 shut.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 7):
+        oled.blit(image_picture.load('face/Expressions/Sad.pbm', 0), 17, 0)
+        oled.show()
+    if (k == 4):
+      if (j == 1):
+        oled.blit(image_picture.load('face/Expressions/Big smile.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 2):
+        oled.blit(image_picture.load('face/Expressions/Heart large.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 3):
+        oled.blit(image_picture.load('face/Expressions/Mouth 1 open.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 4):
+        oled.blit(image_picture.load('face/Expressions/Mouth 1 shut.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 5):
+        oled.blit(image_picture.load('face/Expressions/Mouth 2 open.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 6):
+        oled.blit(image_picture.load('face/Expressions/Mouth 2 shut.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 7):
+        oled.blit(image_picture.load('face/Expressions/Sad.pbm', 0), 17, 0)
+        oled.show()
+    if (k == 5):
+      if (j == 1):
+        oled.blit(image_picture.load('face/Expressions/Sick.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 2):
+        oled.blit(image_picture.load('face/Expressions/Smile.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 3):
+        oled.blit(image_picture.load('face/Expressions/Swearing.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 4):
+        oled.blit(image_picture.load('face/Expressions/Talking.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 5):
+        oled.blit(image_picture.load('face/Expressions/Wink.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 6):
+        oled.blit(image_picture.load('face/Expressions/ZZZ.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 7):
+        oled.blit(image_picture.load('face/Eyes/Angry.pbm', 0), 17, 0)
+        oled.show()
+    if (k == 6):
+      if (j == 1):
+        oled.blit(image_picture.load('face/Eyes/Awake.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 2):
+        oled.blit(image_picture.load('face/Eyes/Black eye.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 3):
+        oled.blit(image_picture.load('face/Eyes/Bottom left.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 4):
+        oled.blit(image_picture.load('face/Eyes/Bottom right.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 5):
+        oled.blit(image_picture.load('face/Eyes/Crazy 1.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 6):
+        oled.blit(image_picture.load('face/Eyes/Crazy 2.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 7):
+        oled.blit(image_picture.load('face/Eyes/Disappointed.pbm', 0), 17, 0)
+        oled.show()
+    if (k == 7):
+      if (j == 1):
+        oled.blit(image_picture.load('face/Eyes/Dizzy.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 2):
+        oled.blit(image_picture.load('face/Eyes/Down.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 3):
+        oled.blit(image_picture.load('face/Eyes/Evil.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 4):
+        oled.blit(image_picture.load('face/Eyes/Hurt.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 5):
+        oled.blit(image_picture.load('face/Eyes/Knocked out.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 6):
+        oled.blit(image_picture.load('face/Eyes/Love.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 7):
+        oled.blit(image_picture.load('face/Eyes/Middle left.pbm', 0), 17, 0)
+        oled.show()
+    if (k == 8):
+      if (j == 1):
+        oled.blit(image_picture.load('face/Eyes/Middle right.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 2):
+        oled.blit(image_picture.load('face/Eyes/Neutral.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 3):
+        oled.blit(image_picture.load('face/Eyes/Nuclear.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 4):
+        oled.blit(image_picture.load('face/Eyes/Pinch left.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 5):
+        oled.blit(image_picture.load('face/Eyes/Pinch middle.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 6):
+        oled.blit(image_picture.load('face/Eyes/Pinch right.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 7):
+        oled.blit(image_picture.load('face/Eyes/Tear.pbm', 0), 17, 0)
+        oled.show()
+    if (k == 9):
+      if (j == 1):
+        oled.blit(image_picture.load('face/Eyes/Tired left.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 2):
+        oled.blit(image_picture.load('face/Eyes/Tired middle.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 3):
+        oled.blit(image_picture.load('face/Eyes/Tired right.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 4):
+        oled.blit(image_picture.load('face/Eyes/Toxic.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 5):
+        oled.blit(image_picture.load('face/Eyes/Up.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 6):
+        oled.blit(image_picture.load('face/Eyes/Winking.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 7):
+        oled.blit(image_picture.load('face/Information/Accept.pbm', 0), 17, 0)
+        oled.show()
+    if (k == 10):
+      if (j == 1):
+        oled.blit(image_picture.load('face/Information/Backward.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 2):
+        oled.blit(image_picture.load('face/Information/Decline.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 3):
+        oled.blit(image_picture.load('face/Information/Forward.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 4):
+        oled.blit(image_picture.load('face/Information/Left.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 5):
+        oled.blit(image_picture.load('face/Information/No go.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 6):
+        oled.blit(image_picture.load('face/Information/Question mark.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 7):
+        oled.blit(image_picture.load('face/Information/Right.pbm', 0), 17, 0)
+        oled.show()
+    if (k == 11):
+      if (j == 1):
+        oled.blit(image_picture.load('face/Information/Stop 1.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 2):
+        oled.blit(image_picture.load('face/Information/Stop 2.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 3):
+        oled.blit(image_picture.load('face/Information/Thumbs down.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 4):
+        oled.blit(image_picture.load('face/Information/Thumbs up.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 5):
+        oled.blit(image_picture.load('face/Information/Warning.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 6):
+        oled.blit(image_picture.load('face/Objects/Bomb.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 7):
+        oled.blit(image_picture.load('face/Objects/Boom.pbm', 0), 17, 0)
+        oled.show()
+    if (k == 12):
+      if (j == 1):
+        oled.blit(image_picture.load('face/Objects/Fire.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 2):
+        oled.blit(image_picture.load('face/Objects/Flowers.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 3):
+        oled.blit(image_picture.load('face/Objects/Forest.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 4):
+        oled.blit(image_picture.load('face/Objects/Light off.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 5):
+        oled.blit(image_picture.load('face/Objects/Light on.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 6):
+        oled.blit(image_picture.load('face/Objects/Lightning.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 7):
+        oled.blit(image_picture.load('face/Objects/Night.pbm', 0), 17, 0)
+        oled.show()
+    if (k == 13):
+      if (j == 1):
+        oled.blit(image_picture.load('face/Objects/Pirate.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 2):
+        oled.blit(image_picture.load('face/Objects/Snow.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 3):
+        oled.blit(image_picture.load('face/Objects/Target.pbm', 0), 17, 0)
+        oled.show()
+      if (j == 4):
+        oled.blit(image_picture.load('face/System/Alert.pbm', 0), 52, 21)
+        oled.show()
+      if (j == 5):
+        oled.blit(image_picture.load('face/System/Box.pbm', 0), 52, 24)
+        oled.show()
+      if (j == 6):
+        oled.blit(image_picture.load('face/System/Play.pbm', 0), 56, 24)
+        oled.show()
+      if (j == 7):
+        oled.blit(image_picture.load('face/System/Dot_empty.pbm', 0), 48, 16)
+        oled.show()
