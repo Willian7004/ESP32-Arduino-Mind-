@@ -1,0 +1,156 @@
+# MindPlus
+# mpython
+from mpython import *
+import math
+
+
+def get_tilt_angle(_axis):
+  _Ax = accelerometer.get_x()
+  _Ay = accelerometer.get_y()
+  _Az = accelerometer.get_z()
+  if 'X' == _axis:
+    _T = math.sqrt(_Ay ** 2 + _Az ** 2)
+    if _Az < 0: return math.degrees(math.atan2(_Ax , _T))
+    else: return 180 - math.degrees(math.atan2(_Ax , _T))
+  elif 'Y' == _axis:
+    _T = math.sqrt(_Ax ** 2 + _Az ** 2)
+    if _Az < 0: return math.degrees(math.atan2(_Ay , _T))
+    else: return 180 - math.degrees(math.atan2(_Ay , _T))
+  elif 'Z' == _axis:
+    _T = math.sqrt(_Ax ** 2 + _Ay ** 2)
+    if (_Ax + _Ay) < 0: return 180 - math.degrees(math.atan2(_T , _Az))
+    else: return math.degrees(math.atan2(_T , _Az)) - 180
+  return 0
+
+touch_threshold = {'P': 400, 'Y': 400, 'T': 400, 'H': 400, 'O': 400, 'N': 400}
+
+brightness=9
+
+
+x = 95
+y = 31
+brightness = 90
+while True:
+  oled.fill(0)
+  oled.DispChar("   倾斜角：", 0, (1-1)*16, 1)
+  oled.DispChar((str((str("X：") + str((round(get_tilt_angle('Y')))))) + str((str(" Y:") + str((round(get_tilt_angle('X'))))))), 0, (2-1)*16, 1)
+  oled.DispChar("   坐标：", 0, (3-1)*16, 1)
+  oled.DispChar((str((str("X：") + str(x))) + str((str(" Y:") + str(y)))), 0, (4-1)*16, 1)
+  if touchPad_P.read() < touch_threshold['P']:
+    brightness = 30
+  if touchPad_Y.read() < touch_threshold['Y']:
+    brightness = 60
+  if touchPad_T.read() < touch_threshold['T']:
+    brightness = 90
+  if touchPad_H.read() < touch_threshold['H']:
+    brightness = 120
+  if touchPad_O.read() < touch_threshold['O']:
+    brightness = 150
+  if touchPad_N.read() < touch_threshold['N']:
+    brightness = 180
+  if (get_tilt_angle('Y') > 10):
+    x = (x - 1)
+    rgb.fill(((round((brightness / 6)))*brightness//9, 0*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('Y') > 20):
+    x = (x - 2)
+    rgb.fill(((round((brightness / 5)))*brightness//9, 0*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('Y') > 30):
+    x = (x - 3)
+    rgb.fill(((round((brightness / 4)))*brightness//9, 0*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('Y') > 40):
+    x = (x - 4)
+    rgb.fill(((round((brightness / 3)))*brightness//9, 0*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('Y') > 50):
+    x = (x - 5)
+    rgb.fill(((round((brightness / 2)))*brightness//9, 0*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('Y') > 60):
+    x = (x - 6)
+    rgb.fill(((brightness>>16)&0xff)*brightness//9, ((brightness>>8)&0xff)*brightness//9, (brightness&0xff)*brightness//9)
+    rgb.write()
+  if (get_tilt_angle('Y') < -10):
+    x = (x + 1)
+    rgb.fill((0*brightness//9, (round((brightness / 6)))*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('Y') < -20):
+    x = (x + 2)
+    rgb.fill((0*brightness//9, (round((brightness / 5)))*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('Y') < -30):
+    x = (x + 3)
+    rgb.fill((0*brightness//9, (round((brightness / 4)))*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('Y') < -40):
+    x = (x + 4)
+    rgb.fill((0*brightness//9, (round((brightness / 3)))*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('Y') < -50):
+    x = (x + 5)
+    rgb.fill((0*brightness//9, (round((brightness / 2)))*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('Y') < -60):
+    x = (x + 6)
+    rgb.fill((0*brightness//9, brightness*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (x > 120):
+    x = 120
+  if (x < 64):
+    x = 64
+  if (get_tilt_angle('X') < -10):
+    y = (y - 1)
+    rgb.fill(((round((brightness / 12)))*brightness//9, (round((brightness / 12)))*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('X') < -20):
+    y = (y - 2)
+    rgb.fill(((round((brightness / 10)))*brightness//9, (round((brightness / 10)))*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('X') < -30):
+    y = (y - 3)
+    rgb.fill(((round((brightness / 8)))*brightness//9, (round((brightness / 8)))*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('X') < -40):
+    y = (y - 4)
+    rgb.fill(((round((brightness / 6)))*brightness//9, (round((brightness / 6)))*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('X') < -50):
+    y = (y - 5)
+    rgb.fill(((round((brightness / 4)))*brightness//9, (round((brightness / 4)))*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('X') < -60):
+    y = (y - 6)
+    rgb.fill(((round((brightness / 2)))*brightness//9, (round((brightness / 2)))*brightness//9, 0*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('X') > 10):
+    y = (y + 1)
+    rgb.fill((0*brightness//9, 0*brightness//9, (round((brightness / 6)))*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('X') > 20):
+    y = (y + 2)
+    rgb.fill((0*brightness//9, 0*brightness//9, (round((brightness / 5)))*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('X') > 30):
+    y = (y + 3)
+    rgb.fill((0*brightness//9, 0*brightness//9, (round((brightness / 4)))*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('X') > 40):
+    y = (y + 4)
+    rgb.fill((0*brightness//9, 0*brightness//9, (round((brightness / 3)))*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('X') > 50):
+    y = (y + 5)
+    rgb.fill((0*brightness//9, 0*brightness//9, (round((brightness / 2)))*brightness//9))
+    rgb.write()
+  if (get_tilt_angle('X') > 60):
+    y = (y + 6)
+    rgb.fill((0*brightness//9, 0*brightness//9, brightness*brightness//9))
+    rgb.write()
+  if (y > 56):
+    y = 56
+  if (y < 0):
+    y = 0
+  oled.RoundRect(x, y, 6, 6, 2, 1)
+  oled.show()
